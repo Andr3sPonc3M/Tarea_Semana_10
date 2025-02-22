@@ -1,0 +1,75 @@
+// Tarea Semana 10
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Crear un conjunto ficticio de 500 ciudadanos
+        HashSet<string> ciudadanos = new HashSet<string>();
+        for (int i = 1; i <= 500; i++)
+        {
+            ciudadanos.Add($"Ciudadano {i}"); // Agrega ciudadanos con nombres como "Ciudadano 1", "Ciudadano 2", etc.
+        }
+
+        // Crear un conjunto ficticio de 75 ciudadanos vacunados con Pfizer
+        HashSet<string> pfizer = new HashSet<string>();
+        for (int i = 1; i <= 75; i++)
+        {
+            pfizer.Add($"Ciudadano {i}"); // Los primeros 75 ciudadanos están vacunados con Pfizer
+        }
+
+        // Crear un conjunto ficticio de 75 ciudadanos vacunados con AstraZeneca
+        HashSet<string> astrazeneca = new HashSet<string>();
+        for (int i = 76; i <= 150; i++)
+        {
+            astrazeneca.Add($"Ciudadano {i}"); // Los siguientes 75 ciudadanos (76-150) están vacunados con AstraZeneca
+        }
+
+        // Operación de conjuntos: Ciudadanos no vacunados
+        HashSet<string> noVacunados = new HashSet<string>(ciudadanos); // Copia el conjunto de todos los ciudadanos
+        noVacunados.ExceptWith(pfizer); // Elimina los ciudadanos vacunados con Pfizer
+        noVacunados.ExceptWith(astrazeneca); // Elimina los ciudadanos vacunados con AstraZeneca
+
+        // Operación de conjuntos: Ciudadanos con dos vacunas (intersección entre Pfizer y AstraZeneca)
+        HashSet<string> dosVacunas = new HashSet<string>(pfizer); // Copia el conjunto de Pfizer
+        dosVacunas.IntersectWith(astrazeneca); // Obtiene la intersección con AstraZeneca
+
+        // Operación de conjuntos: Ciudadanos solo con Pfizer
+        HashSet<string> soloPfizer = new HashSet<string>(pfizer); // Copia el conjunto de Pfizer
+        soloPfizer.ExceptWith(astrazeneca); // Elimina los ciudadanos que también tienen AstraZeneca
+
+        // Operación de conjuntos: Ciudadanos solo con AstraZeneca
+        HashSet<string> soloAstrazeneca = new HashSet<string>(astrazeneca); // Copia el conjunto de AstraZeneca
+        soloAstrazeneca.ExceptWith(pfizer); // Elimina los ciudadanos que también tienen Pfizer
+
+        // Mostrar resultados en la consola
+        Console.WriteLine("Ciudadanos no vacunados:");
+        MostrarConjunto(noVacunados); // Llama a la función para mostrar el conjunto
+
+        Console.WriteLine("\nCiudadanos con dos vacunas:");
+        MostrarConjunto(dosVacunas); // Llama a la función para mostrar el conjunto
+
+        Console.WriteLine("\nCiudadanos solo con Pfizer:");
+        MostrarConjunto(soloPfizer); // Llama a la función para mostrar el conjunto
+
+        Console.WriteLine("\nCiudadanos solo con AstraZeneca:");
+        MostrarConjunto(soloAstrazeneca); // Llama a la función para mostrar el conjunto
+    }
+
+    // Función para mostrar un conjunto en la consola
+    static void MostrarConjunto(HashSet<string> conjunto)
+    {
+        foreach (var ciudadano in conjunto) // Recorre cada elemento del conjunto
+        {
+            Console.WriteLine(ciudadano); // Muestra el nombre del ciudadano
+        }
+    }
+}
+
+// Fin del programa.
+
+// Universidad Estatal Amazónica
+// Andrés Ponce M.
